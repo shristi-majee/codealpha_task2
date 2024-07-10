@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/6b29677803.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="music-player">
+            <nav> 
+                <div class="circle"> 
+                    <i class="fa-solid fa-angles-left"></i>
+                </div>
+    
+                <div class="circle"> 
+                    <i class="fa-solid fa-bars" ></i>
+                </div>
+             </nav>
+            <img src="media/Nadaaniyan.jpeg" class="song1-image">
+            <h1>Nadaaniyan</h1>
+            <p>Akshath , Aisha Ahmed</p>
+
+            <audio id="song1">
+                <source src="media/Nadaaniyan.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progess">
+
+            <div class="controls">
+                <div> <i class="fa-solid fa-backward"></i> </div>
+                <div onclick="playpause()"> <i class="fa-solid fa-play" id="ctrlIcon"></i> </div>
+                <div> <i class="fa-solid fa-forward"></i> </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let progess = document.getElementById("progess");
+        let song = document.getElementById("song1");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+
+        song.onloadedmetadata = function() {
+            progess.max = song.duration;
+        };
+
+        song.ontimeupdate = function() {
+            progess.value = song.currentTime;
+        };
+
+        function playpause() {
+            if (song.paused) {
+                song.play();
+                ctrlIcon.classList.remove("fa-play");
+                ctrlIcon.classList.add("fa-pause");
+            } else {
+                song.pause();
+                ctrlIcon.classList.remove("fa-pause");
+                ctrlIcon.classList.add("fa-play");
+            }
+        }
+
+        progess.oninput = function() {
+            song.currentTime = progess.value;
+        };
+    </script>
+
+</body>
+</html>
